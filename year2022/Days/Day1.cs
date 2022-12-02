@@ -15,7 +15,7 @@ public class Day1
 
     public string Part2()
     {
-        ParseInput("day1-2");
+        ParseInput("day1-1");
         
         var cals = DoStuff();
         
