@@ -19,7 +19,7 @@ namespace year_2022
     {
         public static void SelectProblem()
         {
-            int lastSolved = 2;
+            int lastSolved = 3;
             int[] days = Enumerable.Range(1, lastSolved).ToArray();
 
             input:
