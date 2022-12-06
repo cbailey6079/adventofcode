@@ -19,7 +19,7 @@ namespace year_2022
     {
         public static void SelectProblem()
         {
-            int lastSolved = 4;
+            int lastSolved = 5;
             int[] days = Enumerable.Range(1, lastSolved).ToArray();
 
             input:
@@ -35,7 +35,6 @@ namespace year_2022
             if (Int32.TryParse(dayToRun, out var x) && days.Contains(x))
             {
                 SelectPart(x);
-                goto input;
             }
             else if (dayToRun == "q")
             {
