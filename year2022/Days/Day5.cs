@@ -30,7 +30,7 @@ public class Day5
     {
         MakeMoves(reverse);
         
-        return GetOutput();
+        return String.Join("", _layout.Select(stack => stack.Last()));
     }
 
     void MakeMoves(bool reverse)
@@ -53,17 +53,6 @@ public class Day5
             if (reverse) tempItems.Reverse();
             _layout[to].AddRange(tempItems);
         }
-    }
-
-    string GetOutput()
-    {
-        var output = "";
-        foreach (var stack in _layout)
-        {
-            output += stack.Last();
-        }
-
-        return output;
     }
 
     void ParseInput(string name)
