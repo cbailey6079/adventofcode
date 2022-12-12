@@ -46,28 +46,25 @@ public class Day9
                 {
                     case "R":
                         rope[0].X++;
-                        MoveTail(ref rope, "R");
                         break;
                     case "L":
                         rope[0].X--;
-                        MoveTail(ref rope, "L");
                         break;
                     case "U":
                         rope[0].Y++;
-                        MoveTail(ref rope, "U");
                         break;
                     case "D":
                         rope[0].Y--;
-                        MoveTail(ref rope, "D");
                         break;
                 }
+                MoveTail(ref rope);
             }
         }
         
         return _places.Count;
     }
 
-    void MoveTail(ref Point[] rope, string direction)
+    void MoveTail(ref Point[] rope)
     {
         for (int i = 1; i < rope.Length; i++)
         {
