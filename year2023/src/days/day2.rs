@@ -30,7 +30,7 @@ fn part2(file: String) -> String {
     let mut total: u32 = 0;
 
     for game in games {
-        total += game["red"] * game["green"] * game["blue"];
+        total += game.values().product::<u32>();
     }
 
     total.to_string()
