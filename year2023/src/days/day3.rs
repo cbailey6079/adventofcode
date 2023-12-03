@@ -6,77 +6,14 @@ impl Day for Day3 {
     fn part1(&self, file: String) -> String {
         let engine = create_engine(file);
         let mut sum: Vec<u32> = Vec::new();
-        let mut temp;
+        let mut adjacent_numbers;
 
         for (y, row) in engine.iter().enumerate() {
             for (x, col) in row.iter().enumerate() {
                 if col.parse::<u32>().is_err() && col != "." {
-                    // check top
-                    if y > 0 {
-                        temp = engine.get(y - 1).unwrap().get(x).unwrap();
+                    adjacent_numbers = check_adjacent(&engine, (y, x));
 
-                        if temp.parse::<u32>().is_ok() { 
-                            sum.push(temp.parse::<u32>().unwrap()); 
-                        } else {
-
-                            if x > 0 {
-                                temp = engine.get(y - 1).unwrap().get(x - 1).unwrap();
-
-                                if temp.parse::<u32>().is_ok() { 
-                                    sum.push(temp.parse::<u32>().unwrap()); 
-                                }
-                            }
-
-                            if x < row.len() - 1 {
-                                temp = engine.get(y - 1).unwrap().get(x + 1).unwrap();
-                                if temp.parse::<u32>().is_ok() { 
-                                    sum.push(temp.parse::<u32>().unwrap()); 
-                                }
-                            }
-                        }
-                    }
-
-                    // check bottom
-                    if y < engine.len() - 1 {
-                        temp = engine.get(y + 1).unwrap().get(x).unwrap();
-
-                        if temp.parse::<u32>().is_ok() { 
-                            sum.push(temp.parse::<u32>().unwrap()); 
-                        } else {
-                            if x > 0 {
-                                temp = engine.get(y + 1).unwrap().get(x - 1).unwrap();
-
-                                if temp.parse::<u32>().is_ok() { 
-                                    sum.push(temp.parse::<u32>().unwrap()); 
-                                }
-                            }
-                            if x < row.len() - 1 {
-                                temp = engine.get(y + 1).unwrap().get(x + 1).unwrap();
-
-                                if temp.parse::<u32>().is_ok() { 
-                                    sum.push(temp.parse::<u32>().unwrap()); 
-                                }
-                            }
-                        }
-                    }
-
-                    // check left
-                    if x > 0 {
-                        temp = engine.get(y).unwrap().get(x - 1).unwrap();
-
-                        if temp.parse::<u32>().is_ok() { 
-                            sum.push(temp.parse::<u32>().unwrap()); 
-                        }
-                    }
-                    
-                    // check right
-                    if x < row.len() - 1 {
-                        temp = engine.get(y).unwrap().get(x + 1).unwrap();
-
-                        if temp.parse::<u32>().is_ok() { 
-                            sum.push(temp.parse::<u32>().unwrap()); 
-                        }
-                    }
+                    sum.append(&mut adjacent_numbers);
                 }
             }
         } 
@@ -87,83 +24,15 @@ impl Day for Day3 {
     fn part2(&self, file: String) -> String {
         let engine = create_engine(file);
         let mut sum: Vec<u32> = Vec::new();
-        let mut temp;
-        let mut has_two: Vec<u32>;
+        let mut adjacent_numbers;
 
         for (y, row) in engine.iter().enumerate() {
             for (x, col) in row.iter().enumerate() {
                 if col == "*" {
-                    has_two = Vec::new();
+                    adjacent_numbers = check_adjacent(&engine, (y, x));
 
-                    // check top
-                    if y > 0 {
-                        temp = engine.get(y - 1).unwrap().get(x).unwrap();
-
-                        if temp.parse::<u32>().is_ok() { 
-                            has_two.push(temp.parse::<u32>().unwrap()); 
-                        } else {
-
-                            if x > 0 {
-                                temp = engine.get(y - 1).unwrap().get(x - 1).unwrap();
-
-                                if temp.parse::<u32>().is_ok() { 
-                                    has_two.push(temp.parse::<u32>().unwrap()); 
-                                }
-                            }
-
-                            if x < row.len() - 1 {
-                                temp = engine.get(y - 1).unwrap().get(x + 1).unwrap();
-                                if temp.parse::<u32>().is_ok() { 
-                                    has_two.push(temp.parse::<u32>().unwrap()); 
-                                }
-                            }
-                        }
-                    }
-
-                    // check bottom
-                    if y < engine.len() - 1 {
-                        temp = engine.get(y + 1).unwrap().get(x).unwrap();
-
-                        if temp.parse::<u32>().is_ok() { 
-                            has_two.push(temp.parse::<u32>().unwrap()); 
-                        } else {
-                            if x > 0 {
-                                temp = engine.get(y + 1).unwrap().get(x - 1).unwrap();
-
-                                if temp.parse::<u32>().is_ok() { 
-                                    has_two.push(temp.parse::<u32>().unwrap()); 
-                                }
-                            }
-                            if x < row.len() - 1 {
-                                temp = engine.get(y + 1).unwrap().get(x + 1).unwrap();
-
-                                if temp.parse::<u32>().is_ok() { 
-                                    has_two.push(temp.parse::<u32>().unwrap()); 
-                                }
-                            }
-                        }
-                    }
-
-                    // check left
-                    if x > 0 {
-                        temp = engine.get(y).unwrap().get(x - 1).unwrap();
-
-                        if temp.parse::<u32>().is_ok() { 
-                            has_two.push(temp.parse::<u32>().unwrap()); 
-                        }
-                    }
-                    
-                    // check right
-                    if x < row.len() - 1 {
-                        temp = engine.get(y).unwrap().get(x + 1).unwrap();
-
-                        if temp.parse::<u32>().is_ok() { 
-                            has_two.push(temp.parse::<u32>().unwrap()); 
-                        }
-                    }
-
-                    if has_two.len() == 2 {
-                        sum.push(has_two.iter().product());
+                    if adjacent_numbers.len() == 2 {
+                        sum.push(adjacent_numbers.iter().product());
                     }
                 }
             }
@@ -211,4 +80,64 @@ fn create_engine(file: String) -> Vec<Vec<String>> {
     }
 
     engine
+}
+
+fn check_adjacent(engine: &Vec<Vec<String>>, location: (usize,usize)) -> Vec<u32> {
+    let (y, x) = location;
+    let row = &engine[y];
+    let mut adjecent: Vec<u32> = Vec::new();
+
+    // check top
+    if y > 0 {
+        if engine[y - 1][x].parse::<u32>().is_ok() { 
+            adjecent.push(engine[y - 1][x].parse::<u32>().unwrap()); 
+        } else {
+
+            if x > 0 {
+                if engine[y - 1][x - 1].parse::<u32>().is_ok() { 
+                    adjecent.push(engine[y - 1][x - 1].parse::<u32>().unwrap()); 
+                }
+            }
+
+            if x < row.len() - 1 {
+                if engine[y - 1][x + 1].parse::<u32>().is_ok() { 
+                    adjecent.push(engine[y - 1][x + 1].parse::<u32>().unwrap()); 
+                }
+            }
+        }
+    }
+
+    // check bottom
+    if y < engine.len() - 1 {
+        if engine[y + 1][x].parse::<u32>().is_ok() { 
+            adjecent.push(engine[y + 1][x].parse::<u32>().unwrap()); 
+        } else {
+            if x > 0 {
+                if engine[y + 1][x - 1].parse::<u32>().is_ok() { 
+                    adjecent.push(engine[y + 1][x - 1].parse::<u32>().unwrap()); 
+                }
+            }
+            if x < row.len() - 1 {
+                if engine[y + 1][x + 1].parse::<u32>().is_ok() { 
+                    adjecent.push(engine[y + 1][x + 1].parse::<u32>().unwrap()); 
+                }
+            }
+        }
+    }
+
+    // check left
+    if x > 0 {
+        if engine[y][x - 1].parse::<u32>().is_ok() { 
+            adjecent.push(engine[y][x - 1].parse::<u32>().unwrap()); 
+        }
+    }
+    
+    // check right
+    if x < row.len() - 1 {
+        if engine[y][x + 1].parse::<u32>().is_ok() { 
+            adjecent.push(engine[y][x + 1].parse::<u32>().unwrap()); 
+        }
+    }
+
+    adjecent
 }
