@@ -205,7 +205,6 @@ fn create_engine(file: String) -> Vec<Vec<String>> {
             for _ in number_str.chars() {
                 temp.push(number_str.clone());
             }
-            number_str = String::new();
         }
 
         engine.push(temp.clone());
