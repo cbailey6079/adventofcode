@@ -1,39 +1,34 @@
 use std::collections::HashMap;
-use crate::utils;
+use crate::{utils, Day};
 
-pub fn run(part: i8, file: String) -> String {
-    println!("Running Part{part}:");
-    match part {
-        1 => part1(file),
-        2 => part2(file),
-        _ => "Part {part} not implemented".to_string(),
-    }
-}
+pub struct Day2 {}
 
-fn part1(file: String) -> String {
-    let lines = utils::read_lines(format!("./src/files/day2/{file}.txt").as_str());
-    let games = parse_games(lines);
-    let mut total = 0;
+impl Day for Day2 {
+    fn part1(&self, file: String) -> String {
+        let lines = utils::read_lines(format!("./src/files/day2/{file}.txt").as_str());
+        let games = parse_games(lines);
+        let mut total = 0;
 
-    for (i, game) in games.into_iter().enumerate() {
-        if game["red"] <= 12 && game["green"] <= 13 && game["blue"] <= 14 {
-            total += i + 1;
+        for (i, game) in games.into_iter().enumerate() {
+            if game["red"] <= 12 && game["green"] <= 13 && game["blue"] <= 14 {
+                total += i + 1;
+            }
         }
+
+        total.to_string()
     }
 
-    total.to_string()
-}
+    fn part2(&self, file: String) -> String {
+        let lines = utils::read_lines(format!("./src/files/day2/{file}.txt").as_str());
+        let games = parse_games(lines);
+        let mut total: u32 = 0;
 
-fn part2(file: String) -> String {
-    let lines = utils::read_lines(format!("./src/files/day2/{file}.txt").as_str());
-    let games = parse_games(lines);
-    let mut total: u32 = 0;
+        for game in games {
+            total += game.values().product::<u32>();
+        }
 
-    for game in games {
-        total += game.values().product::<u32>();
+        total.to_string()
     }
-
-    total.to_string()
 }
 
 fn parse_games(lines: Vec<String>) -> Vec<HashMap<String, u32>> {
