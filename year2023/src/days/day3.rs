@@ -82,62 +82,38 @@ fn create_engine(file: String) -> Vec<Vec<String>> {
     engine
 }
 
-fn check_adjacent(engine: &Vec<Vec<String>>, location: (usize,usize)) -> Vec<u32> {
-    let (y, x) = location;
-    let row = &engine[y];
-    let mut adjecent: Vec<u32> = Vec::new();
+fn check_adjacent(engine: &Vec<Vec<String>>, current_point: (usize,usize)) -> Vec<u32> {
+    let (y, x) = current_point;
+    let mut adjacent: Vec<u32> = Vec::new();
 
-    // check top
-    if y > 0 {
-        if engine[y - 1][x].parse::<u32>().is_ok() { 
-            adjecent.push(engine[y - 1][x].parse::<u32>().unwrap()); 
-        } else {
+    let locations: Vec<(usize,usize)> = [
+        (y - 1, x), 
+        (y - 1, x - 1), 
+        (y - 1, x + 1),
+        (y + 1, x),
+        (y + 1, x - 1),
+        (y + 1, x + 1),
+        (y, x - 1),
+        (y, x + 1)
+        ].to_vec();
 
-            if x > 0 {
-                if engine[y - 1][x - 1].parse::<u32>().is_ok() { 
-                    adjecent.push(engine[y - 1][x - 1].parse::<u32>().unwrap()); 
+    for location in locations {
+        match engine.get(location.0) {
+            Some(row) => {
+                match row.get(location.1) {
+                    Some(item) => {
+                        if item.parse::<u32>().is_ok() { 
+                            adjacent.push(item.parse::<u32>().unwrap()); 
+                        }
+                    },
+                    None => continue,
                 }
-            }
-
-            if x < row.len() - 1 {
-                if engine[y - 1][x + 1].parse::<u32>().is_ok() { 
-                    adjecent.push(engine[y - 1][x + 1].parse::<u32>().unwrap()); 
-                }
-            }
-        }
+            },
+            None => continue,
+        };
     }
 
-    // check bottom
-    if y < engine.len() - 1 {
-        if engine[y + 1][x].parse::<u32>().is_ok() { 
-            adjecent.push(engine[y + 1][x].parse::<u32>().unwrap()); 
-        } else {
-            if x > 0 {
-                if engine[y + 1][x - 1].parse::<u32>().is_ok() { 
-                    adjecent.push(engine[y + 1][x - 1].parse::<u32>().unwrap()); 
-                }
-            }
-            if x < row.len() - 1 {
-                if engine[y + 1][x + 1].parse::<u32>().is_ok() { 
-                    adjecent.push(engine[y + 1][x + 1].parse::<u32>().unwrap()); 
-                }
-            }
-        }
-    }
-
-    // check left
-    if x > 0 {
-        if engine[y][x - 1].parse::<u32>().is_ok() { 
-            adjecent.push(engine[y][x - 1].parse::<u32>().unwrap()); 
-        }
-    }
+    adjacent.dedup();
     
-    // check right
-    if x < row.len() - 1 {
-        if engine[y][x + 1].parse::<u32>().is_ok() { 
-            adjecent.push(engine[y][x + 1].parse::<u32>().unwrap()); 
-        }
-    }
-
-    adjecent
+    adjacent
 }
