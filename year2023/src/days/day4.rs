@@ -68,17 +68,15 @@ fn get_cards(file: String) -> Vec<Card> {
         let card: Vec<&str> = line.split(":").collect(); 
         let numbers: Vec<&str> = card[1].split(" |").collect();
 
-        let winners = numbers[0].chars()
-            .collect::<Vec<char>>()
-            .chunks(3)
-            .map(|c| c.iter().collect::<String>().trim().parse::<u8>().unwrap())
-            .collect::<Vec<u8>>();
+        let winners: Vec<u8> = numbers[0]
+            .split_ascii_whitespace()
+            .map(|i| i.trim().parse::<u8>().unwrap())
+            .collect();
 
-        let current = numbers[1].chars()
-            .collect::<Vec<char>>()
-            .chunks(3)
-            .map(|c| c.iter().collect::<String>().trim().parse::<u8>().unwrap())
-            .collect::<Vec<u8>>();
+        let current = numbers[1]
+            .split_ascii_whitespace()
+            .map(|i| i.trim().parse::<u8>().unwrap())
+            .collect();
 
         cards.push(Card {copies: 1, winning_numbers: winners, current_numbers: current});
     }
