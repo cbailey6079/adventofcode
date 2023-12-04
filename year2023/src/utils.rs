@@ -10,9 +10,11 @@ pub fn read_lines(path: &str) -> Vec<String> {
 
 pub fn populate_days() -> Vec<Box<dyn Day>> {
     let mut days: Vec<Box<dyn Day>> = Vec::new();
+    
     days.push(Box::new(days::day1::Day1 {}));
     days.push(Box::new(days::day2::Day2 {}));
     days.push(Box::new(days::day3::Day3 {}));
+    days.push(Box::new(days::day4::Day4 {}));
 
     days
 }
