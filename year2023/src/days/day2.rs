@@ -44,11 +44,11 @@ fn parse_games(lines: Vec<String>) -> Vec<HashMap<String, u32>> {
 
             for colors in hand {
                 let group: Vec<&str> = colors.split(" ").collect();
-                let number = group[0].parse::<u32>().unwrap();
+                let mut number = group[0].parse::<u32>().unwrap();
                 let color = group[1];
                 
                 games[i].entry(color.to_string())
-                    .and_modify(|x| { if *x < number {*x = number;}})
+                    .and_modify(|x| *x = *x.max(&mut number))
                     .or_insert_with(|| number);
             }
         }   

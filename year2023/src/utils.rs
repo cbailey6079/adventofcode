@@ -15,6 +15,7 @@ pub fn populate_days() -> Vec<Box<dyn Day>> {
     days.push(Box::new(days::day2::Day2 {}));
     days.push(Box::new(days::day3::Day3 {}));
     days.push(Box::new(days::day4::Day4 {}));
+    days.push(Box::new(days::day5::Day5 {}));
 
     days
 }

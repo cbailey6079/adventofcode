@@ -37,12 +37,14 @@ impl Day for Day4 {
         let mut cards = get_cards(file);
         let mut total_cards = cards.len();
         let mut winners;
+        let mut card;
 
         for card_index in 0..cards.len() {
             winners = Vec::new();
+            card = &cards[card_index];
 
-            for winner in &cards[card_index].winning_numbers {
-                if cards[card_index].current_numbers.contains(&winner) {
+            for winner in card.winning_numbers.as_slice() {
+                if card.current_numbers.contains(&winner) {
                     winners.push(winner);
                 }
             }
