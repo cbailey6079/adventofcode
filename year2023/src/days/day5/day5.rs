@@ -57,7 +57,7 @@ impl Day for Day5 {
 }
 
 fn read_map(file: String) -> (Vec<u64>, Vec<Vec<Map>>) {
-    let lines = utils::read_lines(format!("./src/files/day5/{file}.txt").as_str());
+    let lines = utils::read_lines(format!("./src/days/day5/files/{file}.txt").as_str());
     let mut key;
     let mut maps: Vec<Vec<Map>> = Vec::new();
     let mut map: Vec<Map> = Vec::new();
@@ -98,3 +98,41 @@ fn read_map(file: String) -> (Vec<u64>, Vec<Vec<Map>>) {
 
     (seeds, maps)
 }
+
+#[cfg(test)]
+#[test]
+fn day5_part1_example() {
+    let day = Day5 {};
+    let expected = "35";
+    let actual = day.part1("test1".to_string());
+
+    assert_eq!(actual, expected);
+}
+
+#[test]
+fn day5_part1() {
+    let day = Day5 {};
+    let expected = "278755257";
+    let actual = day.part1("input".to_string());
+
+    assert_eq!(actual, expected);
+}
+
+#[test]
+fn day5_part2_example() {
+    let day = Day5 {};
+    let expected = "46";
+    let actual = day.part2("test1".to_string());
+
+    assert_eq!(actual, expected);
+}
+
+// you brute forced this problem because you are lazy, so don't run it.
+// #[test]
+// fn day5_part2() {
+//     let day = Day5 {};
+//     let expected = "26829166";
+//     let actual = day.part2("input".to_string());
+
+//     assert_eq!(actual, expected);
+// }

@@ -5,7 +5,7 @@ pub struct Day2 {}
 
 impl Day for Day2 {
     fn part1(&self, file: String) -> String {
-        let lines = utils::read_lines(format!("./src/files/day2/{file}.txt").as_str());
+        let lines = utils::read_lines(format!("./src/days/day2/files/{file}.txt").as_str());
         let games = parse_games(lines);
         let mut total = 0;
 
@@ -19,7 +19,7 @@ impl Day for Day2 {
     }
 
     fn part2(&self, file: String) -> String {
-        let lines = utils::read_lines(format!("./src/files/day2/{file}.txt").as_str());
+        let lines = utils::read_lines(format!("./src/days/day2/files/{file}.txt").as_str());
         let games = parse_games(lines);
         let mut total: u32 = 0;
 
@@ -55,4 +55,41 @@ fn parse_games(lines: Vec<String>) -> Vec<HashMap<String, u32>> {
     }
 
     games
+}
+
+#[cfg(test)]
+#[test]
+fn day2_part1_example() {
+    let day = Day2 {};
+    let expected = "8";
+    let actual = day.part1("test1".to_string());
+
+    assert_eq!(actual, expected);
+}
+
+#[test]
+fn day2_part1() {
+    let day = Day2 {};
+    let expected = "3035";
+    let actual = day.part1("input".to_string());
+
+    assert_eq!(actual, expected);
+}
+
+#[test]
+fn day2_part2_example() {
+    let day = Day2 {};
+    let expected = "2286";
+    let actual = day.part2("test1".to_string());
+
+    assert_eq!(actual, expected);
+}
+
+#[test]
+fn day2_part2() {
+    let day = Day2 {};
+    let expected = "66027";
+    let actual = day.part2("input".to_string());
+
+    assert_eq!(actual, expected);
 }

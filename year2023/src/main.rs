@@ -2,9 +2,8 @@ use std::io::stdin;
 
 use crate::utils::populate_days;
 
-mod tests;
-mod days;
 mod utils;
+mod days;
 
 fn main() {
     let days = populate_days();

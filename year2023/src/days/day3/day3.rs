@@ -47,7 +47,7 @@ fn create_engine(file: String) -> Vec<Vec<String>> {
     let mut temp: Vec<String>;
     let mut number_str;
     let mut adding;
-    let lines = utils::read_lines(format!("./src/files/day3/{file}.txt").as_str());
+    let lines = utils::read_lines(format!("./src/days/day3/files/{file}.txt").as_str());
 
     for line in lines {
         number_str = String::new();
@@ -116,4 +116,42 @@ fn check_adjacent(engine: &Vec<Vec<String>>, current_point: (usize,usize)) -> Ve
     adjacent.dedup();
     
     adjacent
+}
+
+
+#[cfg(test)]
+#[test]
+fn day3_part1_example() {
+    let day = Day3 {};
+    let expected = "4361";
+    let actual = day.part1("test1".to_string());
+
+    assert_eq!(actual, expected);
+}
+
+#[test]
+fn day3_part1() {
+    let day = Day3 {};
+    let expected = "536202";
+    let actual = day.part1("input".to_string());
+
+    assert_eq!(actual, expected);
+}
+
+#[test]
+fn day3_part2_example() {
+    let day = Day3 {};
+    let expected = "467835";
+    let actual = day.part2("test1".to_string());
+
+    assert_eq!(actual, expected);
+}
+
+#[test]
+fn day3_part2() {
+    let day = Day3 {};
+    let expected = "78272573";
+    let actual = day.part2("input".to_string());
+
+    assert_eq!(actual, expected);
 }

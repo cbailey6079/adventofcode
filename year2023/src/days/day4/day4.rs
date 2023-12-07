@@ -62,7 +62,7 @@ impl Day for Day4 {
 }
 
 fn get_cards(file: String) -> Vec<Card> {
-    let lines = utils::read_lines(format!("./src/files/day4/{file}.txt").as_str());
+    let lines = utils::read_lines(format!("./src/days/day4/files/{file}.txt").as_str());
     let mut cards: Vec<Card> = Vec::new();
 
 
@@ -84,4 +84,41 @@ fn get_cards(file: String) -> Vec<Card> {
     }
 
     cards
+}
+
+#[cfg(test)]
+#[test]
+fn day4_part1_example() {
+    let day = Day4 {};
+    let expected = "13";
+    let actual = day.part1("test1".to_string());
+
+    assert_eq!(actual, expected);
+}
+
+#[test]
+fn day4_part1() {
+    let day = Day4 {};
+    let expected = "25183";
+    let actual = day.part1("input".to_string());
+
+    assert_eq!(actual, expected);
+}
+
+#[test]
+fn day4_part2_example() {
+    let day = Day4 {};
+    let expected = "30";
+    let actual = day.part2("test1".to_string());
+
+    assert_eq!(actual, expected);
+}
+
+#[test]
+fn day4_part2() {
+    let day = Day4 {};
+    let expected = "5667240";
+    let actual = day.part2("input".to_string());
+
+    assert_eq!(actual, expected);
 }

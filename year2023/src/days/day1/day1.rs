@@ -5,7 +5,7 @@ pub struct Day1 {}
 
 impl Day for Day1 {
     fn part1(&self, file: String) -> String {
-        let lines = utils::read_lines(format!("./src/files/day1/{file}.txt").as_str());
+        let lines = utils::read_lines(format!("./src/days/day1/files/{file}.txt").as_str());
 
         let mut numbers: Vec<i8>;
         let mut total:i64 = 0;
@@ -27,7 +27,7 @@ impl Day for Day1 {
     }
 
     fn part2(&self, file: String) -> String {
-        let lines = utils::read_lines(format!("./src/files/day1/{file}.txt").as_str());
+        let lines = utils::read_lines(format!("./src/days/day1/files/{file}.txt").as_str());
         
         let english_number = ["one","two","three","four","five","six","seven","eight","nine"];
         let mut numbers =  HashMap::new();
@@ -63,4 +63,46 @@ impl Day for Day1 {
 
         total.to_string()
     }
+}
+
+
+#[cfg(test)]
+#[test]
+fn day1_part1_example() {
+    let day = Day1 {};
+    let expected = "142";
+
+    let actual = day.part1("test1".to_string());
+
+    assert_eq!(actual, expected);
+}
+
+#[test]
+fn day1_part1() {
+    let day = Day1 {};
+    let expected = "54990";
+
+    let actual = day.part1("input".to_string());
+
+    assert_eq!(actual, expected);
+}
+
+#[test]
+fn day1_part2_example() {
+    let day = Day1 {};
+    let expected = "281";
+
+    let actual = day.part2("test2".to_string());
+
+    assert_eq!(actual, expected);
+}
+
+#[test]
+fn day1_part2() {
+    let day = Day1 {};
+    let expected = "54473";
+
+    let actual = day.part2("input".to_string());
+
+    assert_eq!(actual, expected);
 }
