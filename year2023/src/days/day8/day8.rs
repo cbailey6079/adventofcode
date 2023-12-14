@@ -36,39 +36,32 @@ impl Day for Day8 {
 
     fn part2(&self, file: String) -> String {
         let (map, nav) = parse_map(file);
-        let mut end;
-        let mut steps = 1;
-        let mut curr_steps: Vec<String> = map.iter()
+        let mut steps: Vec<usize> = Vec::new();
+        let curr_steps: Vec<String> = map.iter()
             .filter(|a| a.0.ends_with("A"))
             .map(|b| b.0.to_string())
             .collect();
 
-        println!("starting: {:?}", curr_steps);
+        for (i, mut curr_step) in curr_steps.iter().enumerate() {
+            steps.push(1);
 
-        loop {
-            end = true;
-            for (i, step) in curr_steps.clone().iter().enumerate() {
-                match nav[(steps - 1) % nav.len()].as_str() {
-                    "L" => curr_steps[i] = map[step].left.clone(),
-                    _ => curr_steps[i] = map[step].right.clone(),
+            loop {
+                let test = match nav[(steps[i] - 1) % nav.len()].as_str() {
+                    "L" => &map[curr_step].left,
+                    _ => &map[curr_step].right,
                 };
-            }
 
-            for step in &curr_steps {
-                if !step.ends_with("Z") {
-                    end = false;
+                if test.contains("Z") {
                     break;
+                } else {
+                    curr_step = test;
                 }
-            }
 
-            if end {
-                break;
-            }
+                steps[i] += 1;
+            } 
+        }
 
-            steps += 1;
-        } 
-
-        steps.to_string()
+        lcm(steps).to_string()
     }
 }
 
@@ -107,6 +100,24 @@ fn parse_map(file: String) -> (HashMap<String, MyTup>, Vec<String>) {
     (map, nav)
 }
 
+fn lcm(steps: Vec<usize>) -> usize {
+    let mut lcm = steps[0];
+
+    for i in 1..steps.len() {
+        lcm = ((steps[i] * lcm) / (gcd(steps[i], lcm))).clone();
+    }
+
+    lcm
+}
+
+fn gcd(a: usize, b: usize) -> usize {
+    if b == 0 {
+        return a;
+    }
+
+    gcd(b, a % b)
+}
+
 #[cfg(test)]
 #[test]
 fn day8_part1_example() {
@@ -138,12 +149,12 @@ fn day8_part2_example() {
     assert_eq!(actual, expected);
 }
 
-// #[test]
-// fn day8_part2() {
-//     let day = Day8 {};
-//     let expected = "";
+#[test]
+fn day8_part2() {
+    let day = Day8 {};
+    let expected = "7309459565207";
 
-//     let actual = day.part2("input".to_string());
+    let actual = day.part2("input".to_string());
 
-//     assert_eq!(actual, expected);
-// }
+    assert_eq!(actual, expected);
+}
